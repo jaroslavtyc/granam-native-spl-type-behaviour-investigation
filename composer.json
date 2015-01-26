@@ -1,0 +1,25 @@
+{
+    "name": "granam/native-spl-type-test",
+    "description": "Investigation of behaviour of the PHP SPL types extension",
+    "keywords": [
+        "php",
+        "SPL",
+        "investigation",
+        "test"
+    ],
+    "homepage": "https://github.com/jaroslavtyc/granam-native-spl-type-test",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jaroslav Týc",
+            "homepage": "http://jaroslavtyc.com",
+            "role": "Original author"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4"
+    }
+}
