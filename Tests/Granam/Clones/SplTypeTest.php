@@ -1,18 +1,19 @@
 <?php
+namespace Granam\Clones;
 
 class SplTypeTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
     public function has_only_single_constant_with_expected_name()
     {
-        $classReflection = new \ReflectionClass(SplType::class);
+        $classReflection = new \ReflectionClass(\SplType::class);
         $this->assertSame(['__default' => null], $classReflection->getConstants());
     }
 
     /** @test */
     public function constructor_has_two_parameters()
     {
-        $classReflection = new \ReflectionClass(SplType::class);
+        $classReflection = new \ReflectionClass(\SplType::class);
         $constructorReflection = $classReflection->getConstructor();
         $this->assertSame(2, $constructorReflection->getNumberOfParameters());
     }
@@ -20,7 +21,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function constructor_has_only_optional_parameters()
     {
-        $classReflection = new \ReflectionClass(SplType::class);
+        $classReflection = new \ReflectionClass(\SplType::class);
         $constructorReflection = $classReflection->getConstructor();
         $this->assertSame(0, $constructorReflection->getNumberOfRequiredParameters());
     }
@@ -28,7 +29,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function constructor_parameters_are_names_as_expected()
     {
-        $classReflection = new \ReflectionClass(SplType::class);
+        $classReflection = new \ReflectionClass(\SplType::class);
         $constructorReflection = $classReflection->getConstructor();
         $reflectionParameters = $constructorReflection->getParameters();
         $parameterNames = array_map(
@@ -43,7 +44,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function constructor_parameters_are_not_passed_by_reference()
     {
-        $classReflection = new \ReflectionClass(SplString::class);
+        $classReflection = new \ReflectionClass(\SplString::class);
         $constructorReflection = $classReflection->getConstructor();
         $reflectionParameters = $constructorReflection->getParameters();
         $initial_value = $reflectionParameters[0];
@@ -105,7 +106,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException \UnexpectedValueException
      */
     public function true_as_first_parameter_throws_exception()
     {
@@ -114,16 +115,16 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException \UnexpectedValueException
      */
     public function object_as_first_parameter_throws_exception()
     {
-        new SplTypeChild(new stdClass());
+        new SplTypeChild(new \stdClass());
     }
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException \UnexpectedValueException
      */
     public function resource_as_first_parameter_throws_exception()
     {
@@ -132,7 +133,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException \UnexpectedValueException
      */
     public function callback_as_first_parameter_throws_exception()
     {
