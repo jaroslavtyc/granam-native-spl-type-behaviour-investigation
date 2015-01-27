@@ -15,7 +15,7 @@ SplType
         - integer
         - float
         - array
-    - constructor $initial_value can **not** be
+    - constructor $initial_value can **not** be (throws **UnexpectedValueException**)
         - true
         - object
         - closure
