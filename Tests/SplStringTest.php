@@ -57,8 +57,9 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function can_be_created_with_default_values()
     {
-        $instance = new SplString();
-        $this->assertNotNull($instance);
+        $splString = new SplString();
+        $this->assertNotNull($splString);
+        $this->assertSame('', (string)$splString);
     }
 
     /**
@@ -66,7 +67,7 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
      * @expectedException UnexpectedValueException
      * @expectedExceptionMessage Value not a string
      */
-    public function null_is_refused_by_exception_if_strict()
+    public function non_string_is_refused_by_exception_if_explicitly_strict()
     {
         new SplString(null, true);
     }
@@ -134,6 +135,24 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
         $splString = new SplString($float, false);
         $this->assertSame('1', (string)$splString);
         $this->assertSame((string)$float, (string)$splString);
+    }
+
+    /**
+     * @test
+     */
+    public function true_is_string_one_if_not_strict()
+    {
+        $splString = new SplString(true, false);
+        $this->assertSame('1', (string)$splString);
+    }
+
+    /**
+     * @test
+     */
+    public function false_is_empty_string_if_not_strict()
+    {
+        $splString = new SplString(false, false);
+        $this->assertSame('', (string)$splString);
     }
 
     /** @test */
