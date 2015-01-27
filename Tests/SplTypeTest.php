@@ -2,13 +2,6 @@
 
 class SplTypeTest extends \PHPUnit_Framework_TestCase
 {
-
-    /** @test */
-    public function default_constant_is_null()
-    {
-        $this->assertNull(\SplType::__default);
-    }
-
     /** @test */
     public function has_only_single_constant_with_expected_name()
     {
@@ -48,14 +41,17 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function constructor_first_parameter_is_not_passed_by_reference()
+    public function constructor_parameters_are_not_passed_by_reference()
     {
-        $classReflection = new \ReflectionClass(SplType::class);
+        $classReflection = new \ReflectionClass(SplString::class);
         $constructorReflection = $classReflection->getConstructor();
         $reflectionParameters = $constructorReflection->getParameters();
         $initial_value = $reflectionParameters[0];
         $this->assertSame('initial_value', $initial_value->getName());
         $this->assertFalse($initial_value->isPassedByReference());
+        $strict = $reflectionParameters[1];
+        $this->assertSame('strict', $strict->getName());
+        $this->assertFalse($strict->isPassedByReference());
     }
 
     /** @test */
@@ -140,11 +136,13 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function callback_as_first_parameter_throws_exception()
     {
-        new SplTypeChild(function(){});
+        new SplTypeChild(function () {
+        });
     }
 }
 
-/* inner */ class SplTypeChild extends \SplType
+/** inner */
+class SplTypeChild extends \SplType
 {
 
 }
