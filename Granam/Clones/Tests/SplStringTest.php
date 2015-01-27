@@ -1,5 +1,5 @@
 <?php
-namespace Granam\Clones;
+namespace Granam\Clones\Tests;
 
 class SplStringTest extends \PHPUnit_Framework_TestCase
 {
