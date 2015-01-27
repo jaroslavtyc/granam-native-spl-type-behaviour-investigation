@@ -9,6 +9,7 @@
         backupGlobals="false"
         syntaxCheck="true"
         strict="true"
+        colors="true"
         >
     <testsuite name="all">
         <directory>./Tests</directory>
