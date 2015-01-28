@@ -142,7 +142,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function with_integer_throws_exception()
+    public function with_non_zero_integer_throws_exception()
     {
         new SplTypeChild(123456);
     }
@@ -152,7 +152,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function with_integer_throws_exception_even_if_not_strict()
+    public function with_non_zero_integer_throws_exception_even_if_not_strict()
     {
         new SplTypeChild(123456, false);
     }
@@ -169,7 +169,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function with_float_throws_exception()
+    public function with_non_zero_float_throws_exception()
     {
         new SplTypeChild(123456.789123);
     }
@@ -179,7 +179,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function with_float_throws_exception_even_if_not_strict()
+    public function with_non_zero_float_throws_exception_even_if_not_strict()
     {
         new SplTypeChild(123456.789123, false);
     }
