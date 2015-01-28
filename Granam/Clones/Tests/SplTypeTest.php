@@ -56,57 +56,30 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function can_be_created_with_default_values()
+    public function with_default_values_is_empty_string_as_string()
     {
         $instance = new SplTypeChild();
-        $this->assertNotNull($instance);
+        $this->assertSame('', (string)$instance);
     }
 
     /** @test */
-    public function can_be_created_with_null_as_first_parameter()
+    public function with_null_is_empty_string_as_string()
     {
         $instance = new SplTypeChild(null);
-        $this->assertNotNull($instance);
+        $this->assertSame('', (string)$instance);
     }
 
     /** @test */
-    public function can_be_created_with_false_as_first_parameter()
+    public function with_false_is_empty_string_as_string()
     {
         $instance = new SplTypeChild(false);
-        $this->assertNotNull($instance);
-    }
-
-    /** @test */
-    public function can_be_created_with_empty_string_as_first_parameter()
-    {
-        $instance = new SplTypeChild('');
-        $this->assertNotNull($instance);
-    }
-
-    /** @test */
-    public function can_be_created_with_empty_array_as_first_parameter()
-    {
-        $instance = new SplTypeChild([]);
-        $this->assertNotNull($instance);
-    }
-
-    /** @test */
-    public function can_be_created_with_integer_as_first_parameter()
-    {
-        $instance = new SplTypeChild(0);
-        $this->assertNotNull($instance);
-    }
-
-    /** @test */
-    public function can_be_created_with_float_as_first_parameter()
-    {
-        $instance = new SplTypeChild(0.0);
-        $this->assertNotNull($instance);
+        $this->assertSame('', (string)$instance);
     }
 
     /**
      * @test
      * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
     public function true_as_first_parameter_throws_exception()
     {
@@ -116,8 +89,69 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function object_as_first_parameter_throws_exception()
+    public function true_as_first_parameter_throws_exception_even_not_strict()
+    {
+        new SplTypeChild(true, false);
+    }
+
+    /** @test */
+    public function with_empty_string_is_the_same_as_string()
+    {
+        $instance = new SplTypeChild('');
+        $this->assertSame('', (string)$instance);
+    }
+
+    /** @test */
+    public function with_empty_array_is_empty_string_as_string()
+    {
+        $instance = new SplTypeChild([]);
+        $this->assertSame('', (string)$instance);
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function not_empty_array_throws_exception()
+    {
+        $instance = new SplTypeChild(['foo', 'bar']);
+        $this->assertSame('', (string)$instance);
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function not_empty_array_throws_exception_even_not_strict()
+    {
+        $instance = new SplTypeChild(['foo', 'bar'], false);
+        $this->assertSame('', (string)$instance);
+    }
+
+    /** @test */
+    public function with_integer_is_empty_string_as_string()
+    {
+        $instance = new SplTypeChild(0);
+        $this->assertSame('', (string)$instance);
+    }
+
+    /** @test */
+    public function with_float_is_empty_string_as_string()
+    {
+        $instance = new SplTypeChild(0.0);
+        $this->assertSame('', (string)$instance);
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function object_throws_exception()
     {
         new SplTypeChild(new \stdClass());
     }
@@ -125,8 +159,19 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function resource_as_first_parameter_throws_exception()
+    public function object_throws_exception_even_not_strict()
+    {
+        new SplTypeChild(new \stdClass(), false);
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function resource_throws_exception()
     {
         new SplTypeChild(tmpfile());
     }
@@ -134,11 +179,36 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function callback_as_first_parameter_throws_exception()
+    public function resource_throws_exception_even_not_strict()
+    {
+        new SplTypeChild(tmpfile(), false);
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function callback_throws_exception()
     {
         new SplTypeChild(function () {
         });
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function callback_throws_exception_even_not_strict()
+    {
+        new SplTypeChild(
+            function () {
+            },
+            false
+        );
     }
 }
 
