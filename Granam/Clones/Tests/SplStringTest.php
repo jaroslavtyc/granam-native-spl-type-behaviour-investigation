@@ -168,12 +168,12 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $lastError);
         $this->assertTrue(!empty($lastError['type']));
         $this->assertSame(8, $lastError['type']);
-        $this->assertTrue(!empty($lastError['message']));
-        $this->assertSame('Array to string conversion', $lastError['message']);
         $this->assertTrue(!empty($lastError['file']));
         $this->assertSame(__FILE__, $lastError['file']);
         $this->assertTrue(!empty($lastError['line']));
         $this->assertSame($lineBeforeExpectedNotice + 1, $lastError['line']);
+        $this->assertTrue(!empty($lastError['message']));
+        $this->assertSame('Array to string conversion', $lastError['message']);
         $this->assertSame('Array', (string)$splString);
     }
 
@@ -194,12 +194,12 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
             $this->assertInternalType('array', $lastError);
             $this->assertTrue(!empty($lastError['type']));
             $this->assertSame(8, $lastError['type']);
-            $this->assertTrue(!empty($lastError['message']));
-            $this->assertSame('Object of class stdClass to string conversion', $lastError['message']);
             $this->assertTrue(!empty($lastError['file']));
             $this->assertSame(__FILE__, $lastError['file']);
             $this->assertTrue(!empty($lastError['line']));
             $this->assertSame($twoLinesBeforeExpectedNotice + 2, $lastError['line']);
+            $this->assertTrue(!empty($lastError['message']));
+            $this->assertSame('Object of class stdClass to string conversion', $lastError['message']);
             throw $exception;
         } finally {
             error_reporting($originalErrorReporting); // restoring previous error reporting
@@ -231,12 +231,12 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
             $this->assertInternalType('array', $lastError);
             $this->assertTrue(!empty($lastError['type']));
             $this->assertSame(8, $lastError['type']);
-            $this->assertTrue(!empty($lastError['message']));
-            $this->assertSame('Object of class Closure to string conversion', $lastError['message']);
             $this->assertTrue(!empty($lastError['file']));
             $this->assertSame(__FILE__, $lastError['file']);
             $this->assertTrue(!empty($lastError['line']));
             $this->assertSame($threeLinesBeforeExpectedNotice + 3, $lastError['line']);
+            $this->assertTrue(!empty($lastError['message']));
+            $this->assertSame('Object of class Closure to string conversion', $lastError['message']);
             throw $exception;
         } finally {
             error_reporting($originalErrorReporting); // restoring previous error reporting
