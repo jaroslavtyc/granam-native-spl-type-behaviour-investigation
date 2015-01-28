@@ -160,14 +160,14 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     public function array_if_not_strict_cause_array_to_string_notice()
     {
         $originalErrorReporting = error_reporting();
-        error_reporting(E_ALL ^ E_NOTICE); // notices temporary disabled
+        error_reporting(E_ALL ^ E_NOTICE); // notices standard reporting temporary disabled
         $lineBeforeExpectedNotice = __LINE__;
         $splString = new \SplString(['foo', 'bar'], false);
         error_reporting($originalErrorReporting); // restoring previous error reporting
         $lastError = error_get_last();
         $this->assertInternalType('array', $lastError);
         $this->assertTrue(!empty($lastError['type']));
-        $this->assertSame(8, $lastError['type']);
+        $this->assertSame(E_NOTICE, $lastError['type']);
         $this->assertTrue(!empty($lastError['file']));
         $this->assertSame(__FILE__, $lastError['file']);
         $this->assertTrue(!empty($lastError['line']));
@@ -185,25 +185,33 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     public function object_cause_notice_and_throws_exception_if_not_strict()
     {
         $originalErrorReporting = error_reporting();
-        error_reporting(E_ALL ^ E_NOTICE); // notices temporary disabled
-        $twoLinesBeforeExpectedNotice = __LINE__;
+        error_reporting(E_ALL ^ E_NOTICE); // notices standard reporting temporary disabled
         try {
             new \SplString(new \stdClass(), false);
         } catch (\Exception $exception) {
+            $twoLinesAfterExpectedNotice = __LINE__;
             $lastError = error_get_last();
             $this->assertInternalType('array', $lastError);
             $this->assertTrue(!empty($lastError['type']));
-            $this->assertSame(8, $lastError['type']);
+            $this->assertSame(E_NOTICE, $lastError['type']);
             $this->assertTrue(!empty($lastError['file']));
             $this->assertSame(__FILE__, $lastError['file']);
             $this->assertTrue(!empty($lastError['line']));
-            $this->assertSame($twoLinesBeforeExpectedNotice + 2, $lastError['line']);
+            $this->assertSame($twoLinesAfterExpectedNotice - 2, $lastError['line']);
             $this->assertTrue(!empty($lastError['message']));
             $this->assertSame('Object of class stdClass to string conversion', $lastError['message']);
             throw $exception;
         } finally {
             error_reporting($originalErrorReporting); // restoring previous error reporting
         }
+    }
+
+    /**
+     * @test
+     */
+    public function with_to_string_object_is_that_string_as_string()
+    {
+        $this->assertSame('foo', (string)new \SplString(new WithToString('foo'), false));
     }
 
     /** @test */
@@ -221,20 +229,23 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     public function closure_cause_notice_and_throws_exception_if_not_strict()
     {
         $originalErrorReporting = error_reporting();
-        error_reporting(E_ALL ^ E_NOTICE); // notices temporary disabled
-        $threeLinesBeforeExpectedNotice = __LINE__;
+        error_reporting(E_ALL ^ E_NOTICE); // notices standard reporting temporary disabled
         try {
-            new \SplString(function () {
-            }, false);
+            new \SplString(
+                function () {
+                },
+                false
+            );
         } catch (\Exception $exception) {
+            $twoLinesAfterExpectedNotice = __LINE__;
             $lastError = error_get_last();
             $this->assertInternalType('array', $lastError);
             $this->assertTrue(!empty($lastError['type']));
-            $this->assertSame(8, $lastError['type']);
+            $this->assertSame(E_NOTICE, $lastError['type']);
             $this->assertTrue(!empty($lastError['file']));
             $this->assertSame(__FILE__, $lastError['file']);
             $this->assertTrue(!empty($lastError['line']));
-            $this->assertSame($threeLinesBeforeExpectedNotice + 3, $lastError['line']);
+            $this->assertSame($twoLinesAfterExpectedNotice - 2, $lastError['line']);
             $this->assertTrue(!empty($lastError['message']));
             $this->assertSame('Object of class Closure to string conversion', $lastError['message']);
             throw $exception;
@@ -336,5 +347,27 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     {
         new \SplString(function () {
         });
+    }
+}
+
+/** inner */
+class WithToString extends \stdClass
+{
+    private $string;
+
+    /**
+     * @param string $string
+     */
+    public function __construct($string)
+    {
+        $this->string = (string)$string;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->string;
     }
 }
