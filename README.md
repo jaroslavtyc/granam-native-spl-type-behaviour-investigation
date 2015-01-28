@@ -1,5 +1,13 @@
 Investigation of behaviour of the [PHP SPL types](http://php.net/manual/en/book.spl-types.php) extension, [version 0.4](http://pecl.php.net/package-changelog.php?package=SPL_Types&release=0.4.0).
 
+(The fastest way to enable that mode on Linux Ubuntu and its derivatives is by
+```bash
+sudo php5enmod spl_types
+```
+
+- before that you need to compile or download and set the extension
+)
+
 ####SplType
 
 - constants
