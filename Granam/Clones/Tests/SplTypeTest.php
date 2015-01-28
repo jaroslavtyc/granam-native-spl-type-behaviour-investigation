@@ -27,7 +27,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function constructor_parameters_are_names_as_expected()
+    public function constructor_parameters_are_named_as_expected()
     {
         $classReflection = new \ReflectionClass(\SplType::class);
         $constructorReflection = $classReflection->getConstructor();
@@ -81,7 +81,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function true_as_first_parameter_throws_exception()
+    public function with_true_throws_exception()
     {
         new SplTypeChild(true);
     }
@@ -91,7 +91,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function true_as_first_parameter_throws_exception_even_not_strict()
+    public function with_true_throws_exception_even_not_strict()
     {
         new SplTypeChild(true, false);
     }
@@ -117,8 +117,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function not_empty_array_throws_exception()
     {
-        $instance = new SplTypeChild(['foo', 'bar']);
-        $this->assertSame('', (string)$instance);
+        new SplTypeChild(['foo', 'bar']);
     }
 
     /**
@@ -128,22 +127,61 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function not_empty_array_throws_exception_even_not_strict()
     {
-        $instance = new SplTypeChild(['foo', 'bar'], false);
-        $this->assertSame('', (string)$instance);
+        new SplTypeChild(['foo', 'bar'], false);
     }
 
     /** @test */
-    public function with_integer_is_empty_string_as_string()
+    public function with_zero_integer_is_empty_string_as_string()
     {
         $instance = new SplTypeChild(0);
         $this->assertSame('', (string)$instance);
     }
 
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function with_integer_throws_exception()
+    {
+        new SplTypeChild(123456);
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function with_integer_throws_exception_even_if_not_strict()
+    {
+        new SplTypeChild(123456, false);
+    }
+
     /** @test */
-    public function with_float_is_empty_string_as_string()
+    public function with_zero_float_is_empty_string_as_string()
     {
         $instance = new SplTypeChild(0.0);
         $this->assertSame('', (string)$instance);
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function with_float_throws_exception()
+    {
+        new SplTypeChild(123456.789123);
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function with_float_throws_exception_even_if_not_strict()
+    {
+        new SplTypeChild(123456.789123, false);
     }
 
     /**
