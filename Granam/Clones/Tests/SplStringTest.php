@@ -208,8 +208,18 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a string
      */
-    public function with_to_string_object_is_that_string_as_string()
+    public function with_to_string_object_throws_exception_if_strict()
+    {
+        new \SplString(new WithToString('foo'));
+    }
+
+    /**
+     * @test
+     */
+    public function with_to_string_object_is_that_string_as_string_if_not_strict()
     {
         $this->assertSame('foo', (string)new \SplString(new WithToString('foo'), false));
     }
