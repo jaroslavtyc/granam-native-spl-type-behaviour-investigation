@@ -1,6 +1,9 @@
 <?php
 namespace Granam\Clones\Tests;
 
+/**
+ * @requires extension spl_types
+ */
 class SplStringTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
