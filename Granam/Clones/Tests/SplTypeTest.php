@@ -55,28 +55,51 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($strict->isPassedByReference());
     }
 
+    // TO STRING & TO INTEGER tests (there is a assumption that if casting directly to int works like string to int, then any other cast will work same way)
+
     /** @test */
     public function with_default_values_is_empty_string_as_string()
     {
-        $instance = new SplTypeChild();
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild();
+        $this->assertSame('', (string)$splType);
+    }
+
+    /** @test */
+    public function with_default_values_is_zero_as_int()
+    {
+        $splType = new SplTypeChild();
+        $this->assertSame(0, (int)$splType);
     }
 
     /** @test */
     public function with_null_is_empty_string_as_string_if_strict()
     {
-        $instance = new SplTypeChild(null, true);
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild(null, true);
+        $this->assertSame('', (string)$splType);
+    }
+
+    /** @test */
+    public function with_null_is_zero_as_int_if_strict()
+    {
+        $splType = new SplTypeChild(null, true);
+        $this->assertSame(0, (int)$splType);
     }
 
     /** @test */
     public function with_null_is_empty_string_as_string_if_not_strict()
     {
-        $instance = new SplTypeChild(null, false);
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild(null, false);
+        $this->assertSame('', (string)$splType);
     }
 
-    // As seen bellow, the SPL type is NOT strict by default
+    /** @test */
+    public function with_null_is_zero_as_int_if_not_strict()
+    {
+        $splType = new SplTypeChild(null, false);
+        $this->assertSame(0, (int)$splType);
+    }
+
+    // as seen bellow, the SPL type is NOT strict by default
 
     /**
      * @test
@@ -91,8 +114,15 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function with_false_is_empty_string_as_string_if_not_strict()
     {
-        $instance = new SplTypeChild(false, false);
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild(false, false);
+        $this->assertSame('', (string)$splType);
+    }
+
+    /** @test */
+    public function with_false_is_zero_as_int_if_not_strict()
+    {
+        $splType = new SplTypeChild(false, false);
+        $this->assertSame(0, (int)$splType);
     }
 
     /**
@@ -122,15 +152,22 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function with_empty_string_is_the_same_as_string_if_strict()
     {
-        $instance = new SplTypeChild('', true);
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild('', true);
+        $this->assertSame('', (string)$splType);
     }
 
     /** @test */
     public function with_empty_string_is_the_same_as_string_if_not_strict()
     {
-        $instance = new SplTypeChild('', false);
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild('', false);
+        $this->assertSame('', (string)$splType);
+    }
+
+    /** @test */
+    public function with_empty_string_is_zer_as_int_if_not_strict()
+    {
+        $splType = new SplTypeChild('', false);
+        $this->assertSame(0, (int)$splType);
     }
 
     /**
@@ -140,15 +177,22 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function with_empty_array_is_empty_string_as_string_if_strict()
     {
-        $instance = new SplTypeChild([], true);
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild([], true);
+        $this->assertSame('', (string)$splType);
     }
 
     /** @test */
     public function with_empty_array_is_empty_string_as_string_if_not_strict()
     {
-        $instance = new SplTypeChild([], false);
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild([], false);
+        $this->assertSame('', (string)$splType);
+    }
+
+    /** @test */
+    public function with_empty_array_is_zero_as_int_if_not_strict()
+    {
+        $splType = new SplTypeChild([], false);
+        $this->assertSame(0, (int)$splType);
     }
 
     /**
@@ -176,17 +220,44 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function with_zero_integer_is_empty_string_as_string_if_strict()
+    public function with_zero_integer_throws_exception_if_strict()
     {
-        $instance = new SplTypeChild(0, true);
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild(0, true);
+        $this->assertSame('', (string)$splType);
     }
 
     /** @test */
     public function with_zero_integer_is_empty_string_as_string_if_not_strict()
     {
-        $instance = new SplTypeChild(0, false);
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild(0, false);
+        $this->assertSame('', (string)$splType);
+    }
+
+    /** @test */
+    public function with_zero_integer_is_zero_as_int_if_not_strict()
+    {
+        $splType = new SplTypeChild(0, false);
+        $this->assertSame(0, (int)$splType);
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function with_zero_as_string_throws_exception_if_strict()
+    {
+        new SplTypeChild('0', true);
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
+     */
+    public function with_zero_as_string_throws_exception_even_if_not_strict()
+    {
+        new SplTypeChild('0', false);
     }
 
     /**
@@ -216,15 +287,22 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function with_zero_float_is_empty_string_as_string_if_strict()
     {
-        $instance = new SplTypeChild(0.0, true);
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild(0.0, true);
+        $this->assertSame('', (string)$splType);
     }
 
     /** @test */
     public function with_zero_float_is_empty_string_as_string_if_not_strict()
     {
-        $instance = new SplTypeChild(0.0, false);
-        $this->assertSame('', (string)$instance);
+        $splType = new SplTypeChild(0.0, false);
+        $this->assertSame('', (string)$splType);
+    }
+
+    /** @test */
+    public function with_zero_float_is_zero_as_int_if_not_strict()
+    {
+        $splType = new SplTypeChild(0.0, false);
+        $this->assertSame(0, (int)$splType);
     }
 
     /**
@@ -315,7 +393,130 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    // TODO clones, serialize / unserialize / math
+    // CLONE tests
+
+    /** @test */
+    public function can_be_cloned()
+    {
+        $instance = new SplTypeChild();
+        $clone = clone $instance;
+        $this->assertEquals($instance, $clone);
+    }
+
+    /** @test */
+    public function can_be_cloned_with_null()
+    {
+        $splType = new SplTypeChild(null, true);
+        $clone = clone $splType;
+        $this->assertSame((string)$splType, (string)$clone);
+    }
+
+    /** @test */
+    public function can_be_cloned_with_false_if_not_strict()
+    {
+        $splType = new SplTypeChild(false, false);
+        $clone = clone $splType;
+        $this->assertEquals($splType, $clone);
+        $this->assertSame((string)$splType, (string)$clone);
+    }
+
+    /** @test */
+    public function can_be_cloned_with_empty_string_if_not_strict()
+    {
+        $splType = new SplTypeChild('', false);
+        $clone = clone $splType;
+        $this->assertEquals($splType, $clone);
+        $this->assertSame((string)$splType, (string)$clone);
+    }
+
+    /** @test */
+    public function can_be_cloned_with_zero_integer_if_not_strict()
+    {
+        $splType = new SplTypeChild(0, false);
+        $clone = clone $splType;
+        $this->assertEquals($splType, $clone);
+        $this->assertSame((string)$splType, (string)$clone);
+    }
+
+    /** @test */
+    public function can_be_cloned_with_zero_float_if_not_strict()
+    {
+        $splType = new SplTypeChild(0.0, false);
+        $clone = clone $splType;
+        $this->assertEquals($splType, $clone);
+        $this->assertSame((string)$splType, (string)$clone);
+    }
+
+    /** @test */
+    public function can_be_cloned_with_empty_array_if_not_strict()
+    {
+        $splType = new SplTypeChild([], false);
+        $clone = clone $splType;
+        $this->assertEquals($splType, $clone);
+        $this->assertSame((string)$splType, (string)$clone);
+    }
+
+    // SERIALIZE & UNSERIALIZE test
+
+    /** @test */
+    public function can_be_serialized_and_unserialized()
+    {
+        $instance = new SplTypeChild();
+        $this->assertEquals($instance, unserialize(serialize($instance)));
+    }
+
+    /** @test */
+    public function can_be_serialized_with_null()
+    {
+        $splType = new SplTypeChild(null, true);
+        $clone = unserialize(serialize($splType));
+        $this->assertSame((string)$splType, (string)$clone);
+    }
+
+    /** @test */
+    public function can_be_serialized_with_false_if_not_strict()
+    {
+        $splType = new SplTypeChild(false, false);
+        $clone = unserialize(serialize($splType));
+        $this->assertEquals($splType, $clone);
+        $this->assertSame((string)$splType, (string)$clone);
+    }
+
+    /** @test */
+    public function can_be_serialized_with_empty_string_if_not_strict()
+    {
+        $splType = new SplTypeChild('', false);
+        $clone = unserialize(serialize($splType));
+        $this->assertEquals($splType, $clone);
+        $this->assertSame((string)$splType, (string)$clone);
+    }
+
+    /** @test */
+    public function can_be_serialized_with_zero_integer_if_not_strict()
+    {
+        $splType = new SplTypeChild(0, false);
+        $clone = unserialize(serialize($splType));
+        $this->assertEquals($splType, $clone);
+        $this->assertSame((string)$splType, (string)$clone);
+    }
+
+    /** @test */
+    public function can_be_serialized_with_zero_float_if_not_strict()
+    {
+        $splType = new SplTypeChild(0.0, false);
+        $clone = unserialize(serialize($splType));
+        $this->assertEquals($splType, $clone);
+        $this->assertSame((string)$splType, (string)$clone);
+    }
+
+    /** @test */
+    public function can_be_serialized_with_empty_array_if_not_strict()
+    {
+        $splType = new SplTypeChild([], false);
+        $clone = unserialize(serialize($splType));
+        $this->assertEquals($splType, $clone);
+        $this->assertSame((string)$splType, (string)$clone);
+    }
 }
 
 /** inner */
