@@ -150,7 +150,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function with_empty_string_is_the_same_as_string_if_strict()
+    public function with_empty_string_throws_exception_if_strict()
     {
         $splType = new SplTypeChild('', true);
         $this->assertSame('', (string)$splType);
@@ -175,7 +175,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function with_empty_array_is_empty_string_as_string_if_strict()
+    public function with_empty_array_throws_exception_if_strict()
     {
         $splType = new SplTypeChild([], true);
         $this->assertSame('', (string)$splType);
@@ -285,7 +285,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function with_zero_float_is_empty_string_as_string_if_strict()
+    public function with_zero_float_throws_exception_if_strict()
     {
         $splType = new SplTypeChild(0.0, true);
         $this->assertSame('', (string)$splType);
@@ -370,7 +370,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a const in enum Granam\Clones\Tests\SplTypeChild
      */
-    public function callback_throws_exception()
+    public function callback_throws_exception_if_strict()
     {
         new SplTypeChild(
             function () {
