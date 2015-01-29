@@ -13,7 +13,7 @@ sudo php5enmod spl_types
 - constants
     - \_\_default = null
 - methods
-    - \_\_construct($initial_value = self::\_\_default, $strict = true)
+    - \_\_construct($initial_value = self::\_\_default, $strict = **false**)
     
 - specifics
     - constructor $initial_value can be
