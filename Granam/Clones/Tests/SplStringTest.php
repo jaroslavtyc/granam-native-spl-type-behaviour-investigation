@@ -71,9 +71,16 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage Value not a string
      */
-    public function non_string_is_refused_by_exception_if_explicitly_strict()
+    public function null_throws_exception_if_strict()
     {
         new \SplString(null, true);
+    }
+
+    /** @test */
+    public function null_if_not_strict_is_empty_string()
+    {
+        $splString = new \SplString(null, false);
+        $this->assertSame('', (string)$splString);
     }
 
     /**
@@ -84,17 +91,12 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     public function is_strict_by_default()
     {
         /**
-         * we are expecting same behaviour as by null_is_refused_by_exception_if_strict
-         * @see null_is_refused_by_exception_if_strict
+         * we are expecting same behaviour as by null_throws_exception_if_strict()
+         * @see null_throws_exception_if_strict
+         * in difference to strict mode tested by null_if_not_strict_is_empty_string
+         * @see null_if_not_strict_is_empty_string
          */
         new \SplString(null);
-    }
-
-    /** @test */
-    public function null_if_not_strict_is_empty_string()
-    {
-        $splString = new \SplString(null, false);
-        $this->assertSame('', (string)$splString);
     }
 
     /** @test */
