@@ -82,7 +82,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function with_default_values_is_array__with_constant_as_array()
+    public function with_default_values_is_array_with_constant_as_array()
     {
         $splType = new SplTypeChild();
         $this->assertSame(['__default' => null], (array)$splType);
