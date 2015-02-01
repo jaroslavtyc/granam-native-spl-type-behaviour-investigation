@@ -61,9 +61,17 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function can_be_created_with_default_values()
     {
-        $splString = new \SplString();
-        $this->assertNotNull($splString);
-        $this->assertSame('', (string)$splString);
+        $instance = new \SplString();
+        $this->assertNotNull($instance);
+        $this->assertSame('', (string)$instance);
+    }
+
+    /** @test */
+    public function can_be_serialized_and_unserialized()
+    {
+        $instance = new \SplString();
+        $this->assertNotSame($instance, unserialize(serialize($instance)));
+        $this->assertEquals($instance, unserialize(serialize($instance)));
     }
 
     /**
@@ -83,6 +91,13 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', (string)$splString);
     }
 
+    /** @test */
+    public function null_if_not_strict_is_empty_string_after_serialization()
+    {
+        $splString = new \SplString(null, false);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
+    }
+
     /**
      * @test
      * @expectedException \UnexpectedValueException
@@ -96,7 +111,14 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
          * in difference to strict mode tested by null_if_not_strict_is_empty_string
          * @see null_if_not_strict_is_empty_string
          */
-        new \SplString(null);
+        new \SplString(null, true);
+    }
+
+    /** @test */
+    public function empty_string_if_strict_is_empty_string()
+    {
+        $splString = new \SplString('', true);
+        $this->assertSame('', (string)$splString);
     }
 
     /** @test */
@@ -107,10 +129,41 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function empty_string_if_not_strict_is_empty_string_after_serialization()
+    {
+        $splString = new \SplString('', false);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
+    }
+
+    /** @test */
+    public function a_string_if_strict_is_that_string()
+    {
+        $splString = new \SplString('foo', true);
+        $this->assertSame('foo', (string)$splString);
+    }
+
+    /** @test */
     public function a_string_if_not_strict_is_that_string()
     {
         $splString = new \SplString('foo', false);
         $this->assertSame('foo', (string)$splString);
+    }
+
+    /** @test */
+    public function a_string_if_not_strict_is_empty_string_after_serialization()
+    {
+        $splString = new \SplString('foo', false);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a string
+     */
+    public function integer_if_strict_throws_exception()
+    {
+        new \SplString(0, true);
     }
 
     /** @test */
@@ -121,10 +174,34 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function integer_if_not_strict_is_empty_string_after_serialization()
+    {
+        $splString = new \SplString(0, false);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a string
+     */
+    public function zero_float_if_strict_throws_exception()
+    {
+        new \SplString(0.0, true);
+    }
+
+    /** @test */
     public function zero_float_if_not_strict_is_string_with_zero_integer()
     {
         $splString = new \SplString(0.0, false);
         $this->assertSame('0', (string)$splString);
+    }
+
+    /** @test */
+    public function zero_float_if_not_strict_is_empty_string_after_serialization()
+    {
+        $splString = new \SplString(0.0, false);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
     }
 
     /** @test */
@@ -135,12 +212,47 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function non_zero_float_if_not_strict_is_empty_string_after_serialization()
+    {
+        $splString = new \SplString(0.1, false);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a string
+     */
+    public function almost_integer_float_if_strict_throws_exception()
+    {
+        new \SplString(0.9999999999999999, true);
+    }
+
+    /** @test */
     public function almost_integer_float_if_not_strict_is_string_with_rounded_integer()
     {
         $float = 0.9999999999999999;
         $splString = new \SplString($float, false);
         $this->assertSame('1', (string)$splString);
         $this->assertSame((string)$float, (string)$splString);
+    }
+
+    /** @test */
+    public function almost_integer_float_if_not_strict_is_empty_string_after_serialization()
+    {
+        $float = 0.9999999999999999;
+        $splString = new \SplString($float, false);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a string
+     */
+    public function true_if_strict_throws_exception()
+    {
+        new \SplString(true, true);
     }
 
     /**
@@ -155,10 +267,48 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function true_is_empty_string_if_not_strict_after_serialization()
+    {
+        $splString = new \SplString(true, false);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a string
+     */
+    public function false_if_strict_throws_exception()
+    {
+        new \SplString(false, true);
+    }
+
+    /**
+     * @test
+     */
     public function false_is_empty_string_if_not_strict()
     {
         $splString = new \SplString(false, false);
         $this->assertSame('', (string)$splString);
+    }
+
+    /**
+     * @test
+     */
+    public function false_is_empty_string_if_not_strict_after_serialization()
+    {
+        $splString = new \SplString(false, false);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a string
+     */
+    public function array_if_strict_throws_exception()
+    {
+        new \SplString([], true);
     }
 
     /** @test */
@@ -180,6 +330,17 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(!empty($lastError['message']));
         $this->assertSame('Array to string conversion', $lastError['message']);
         $this->assertSame('Array', (string)$splString);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a string
+     */
+    public function object_if_strict_throws_exception()
+    {
+        new \SplString(new \stdClass(), true);
     }
 
     /**
@@ -187,7 +348,7 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Object of class stdClass could not be converted to string
      */
-    public function object_cause_notice_and_throws_exception_if_not_strict()
+    public function object_cause_notice_and_throws_exception_even_not_strict()
     {
         $originalErrorReporting = error_reporting();
         error_reporting(E_ALL ^ E_NOTICE); // notices standard reporting temporary disabled
@@ -218,7 +379,7 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
      */
     public function with_to_string_object_throws_exception_if_strict()
     {
-        new \SplString(new WithToString('foo'));
+        new \SplString(new WithToString('foo'), true);
     }
 
     /**
@@ -226,7 +387,27 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
      */
     public function with_to_string_object_is_that_string_as_string_if_not_strict()
     {
-        $this->assertSame('foo', (string)new \SplString(new WithToString('foo'), false));
+        $splString = new \SplString(new WithToString('foo'), false);
+        $this->assertSame('foo', (string)$splString);
+    }
+
+    /**
+     * @test
+     */
+    public function with_to_string_object_is_empty_string_as_string_if_not_strict_after_serialization()
+    {
+        $splString = new \SplString(new WithToString('foo'), false);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a string
+     */
+    public function resource_if_strict_throws_exception()
+    {
+        new \SplString(tmpfile(), true);
     }
 
     /** @test */
@@ -236,12 +417,33 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('~^Resource id #\d+$~', (string)$splString);
     }
 
+    /** @test */
+    public function resource_if_not_strict_is_silently_converted_to_empty_string_after_serialization()
+    {
+        $splString = new \SplString(tmpfile(), false);
+        $this->assertSame('', (string)unserialize(serialize($splString)));
+    }
+
+    /**
+     * @test
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Value not a string
+     */
+    public function callback_if_strict_throws_exception()
+    {
+        new \SplString(
+            function () {
+            },
+            true
+        );
+    }
+
     /**
      * @test
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Object of class Closure could not be converted to string
      */
-    public function closure_cause_notice_and_throws_exception_if_not_strict()
+    public function closure_cause_notice_and_throws_exception_even_not_strict()
     {
         $originalErrorReporting = error_reporting();
         error_reporting(E_ALL ^ E_NOTICE); // notices standard reporting temporary disabled
@@ -269,100 +471,6 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /** @test */
-    public function empty_string_if_strict_is_empty_string()
-    {
-        $splString = new \SplString('');
-        $this->assertSame('', (string)$splString);
-    }
-
-    /** @test */
-    public function a_string_if_strict_is_that_string()
-    {
-        $splString = new \SplString('foo');
-        $this->assertSame('foo', (string)$splString);
-    }
-
-    /**
-     * @test
-     * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a string
-     */
-    public function integer_if_strict_throws_exception()
-    {
-        new \SplString(0);
-    }
-
-    /**
-     * @test
-     * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a string
-     */
-    public function float_if_strict_throws_exception()
-    {
-        new \SplString(0.0);
-    }
-
-    /**
-     * @test
-     * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a string
-     */
-    public function true_if_strict_throws_exception()
-    {
-        new \SplString(true);
-    }
-
-    /**
-     * @test
-     * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a string
-     */
-    public function false_if_strict_throws_exception()
-    {
-        new \SplString(false);
-    }
-
-    /**
-     * @test
-     * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a string
-     */
-    public function array_if_strict_throws_exception()
-    {
-        new \SplString([]);
-    }
-
-    /**
-     * @test
-     * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a string
-     */
-    public function object_if_strict_throws_exception()
-    {
-        new \SplString(new \stdClass());
-    }
-
-    /**
-     * @test
-     * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a string
-     */
-    public function resource_if_strict_throws_exception()
-    {
-        new \SplString(tmpfile());
-    }
-
-    /**
-     * @test
-     * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a string
-     */
-    public function callback_if_strict_throws_exception()
-    {
-        new \SplString(function () {
-        });
-    }
 }
 
 /** inner */
