@@ -5,8 +5,11 @@ Investigation of behaviour of the [PHP SPL types](http://php.net/manual/en/book.
 sudo php5enmod spl_types
 ```
 
-- before that you need to compile or download and set the extension
-)
+- before that you need to compile or download and set the [extension](http://pecl.php.net/package/SPL_Types) )
+
+## Deterrent summary
+SPL types (generic and string dis *covered* unit now) are **hardy predicable**, with a lot of **unexpected** and probably unwanted **behaviour**.
+One for all: serializing and unserializing causes value lost - the value of SPL object simply disappears.
 
 ####SplType
 
@@ -16,15 +19,20 @@ sudo php5enmod spl_types
     - \_\_construct($initial_value = self::\_\_default, $strict = **false**)
     
 - specifics
-    - constructor $initial_value can be
+    - constructor $initial_value can be if **strict**
         - null
+    - constructor $initial_value can be if **not strict** 
         - false
-        - string
-        - integer
-        - float
-        - array
+        - empty string
+        - zero integer
+        - zero float (0.0)
+        - empty array
     - constructor $initial_value can **not** be (throws **UnexpectedValueException**)
         - true (its strange, but true)
+        - non-zero integer
+        - non-zero float
+        - non-empty string
+        - non-empty array
         - object
         - closure
         - resource
@@ -34,7 +42,7 @@ sudo php5enmod spl_types
 - constants
     - \_\_default = '' (empty string)
 - methods
-    - \_\_construct($initial_value = self::\_\_default, $strict = true)
+    - \_\_construct($initial_value = self::\_\_default, $strict = **false**) *the SPL string is **not** strict by default, unlike the parent SPL type*
     
 - specifics
     - constructor $initial_value can be only string in strict mode; non-string in strict mode always cause UnexpectedValueException or InvalidArgumentException
