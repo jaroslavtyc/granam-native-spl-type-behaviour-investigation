@@ -150,6 +150,13 @@ class SplStringTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function a_string_if_not_strict_is_not_lost_after_serialize()
+    {
+        $splString = new \SplString('foo', false);
+        $this->assertSame('O:9:"SplString":1:{s:9:"__default";s:3:"foo";}', serialize($splString));
+    }
+
+    /** @test */
     public function a_string_if_not_strict_is_empty_string_after_serialization()
     {
         $splString = new \SplString('foo', false);
