@@ -13,6 +13,6 @@
         colors="true"
         >
     <testsuite name="all">
-        <directory>./Granam/Clones/Tests</directory>
+        <directory>./Jaroslavtyc/Clones/Tests</directory>
     </testsuite>
 </phpunit>

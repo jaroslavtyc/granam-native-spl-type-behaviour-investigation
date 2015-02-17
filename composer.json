@@ -1,5 +1,5 @@
 {
-    "name": "granam/native-spl-type-behaviour-investigation",
+    "name": "jaroslavtyc/native-spl-type-behaviour-investigation",
     "description": "Investigation of behaviour of the PHP SPL types extension",
     "keywords": [
         "php",
@@ -7,7 +7,7 @@
         "investigation",
         "test"
     ],
-    "homepage": "https://github.com/jaroslavtyc/granam-native-spl-type-behaviour-investigation",
+    "homepage": "https://github.com/jaroslavtyc/native-spl-type-behaviour-investigation",
     "license": "MIT",
     "authors": [
         {
@@ -17,7 +17,7 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Granam\\": "Granam/" }
+        "psr-4": { "Jaroslavtyc\\": "Jaroslavtyc/" }
     },
     "require": {
         "php": ">=5.5.0"

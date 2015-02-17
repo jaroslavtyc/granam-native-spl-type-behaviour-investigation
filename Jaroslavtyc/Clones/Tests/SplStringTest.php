@@ -1,5 +1,5 @@
 <?php
-namespace Granam\Clones\Tests;
+namespace Clones\Tests;
 
 /**
  * @requires extension spl_types
