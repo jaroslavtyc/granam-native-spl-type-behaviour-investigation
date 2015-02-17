@@ -1,5 +1,5 @@
 <?php
-namespace Clones\Tests;
+namespace Jaroslavtyc\Clones\Tests;
 
 /**
  * @requires extension spl_types
@@ -154,7 +154,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_false_throws_exception_if_strict()
     {
@@ -197,7 +197,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_true_throws_exception_if_strict()
     {
@@ -207,7 +207,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_true_throws_exception_even_not_strict()
     {
@@ -217,7 +217,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_empty_string_throws_exception_if_strict()
     {
@@ -262,7 +262,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_empty_array_throws_exception_if_strict()
     {
@@ -306,7 +306,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function not_empty_array_throws_exception_if_strict()
     {
@@ -316,7 +316,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function not_empty_array_throws_exception_even_not_strict()
     {
@@ -326,7 +326,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_zero_integer_throws_exception_if_strict()
     {
@@ -371,7 +371,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_zero_as_string_throws_exception_if_strict()
     {
@@ -381,7 +381,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_zero_as_string_throws_exception_even_if_not_strict()
     {
@@ -391,7 +391,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_non_zero_integer_throws_exception_if_strict()
     {
@@ -401,7 +401,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_non_zero_integer_throws_exception_even_if_not_strict()
     {
@@ -411,7 +411,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_zero_float_throws_exception_if_strict()
     {
@@ -456,7 +456,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_non_zero_float_throws_exception_if_strict()
     {
@@ -466,7 +466,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function with_non_zero_float_throws_exception_even_if_not_strict()
     {
@@ -476,7 +476,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function object_throws_exception_if_strict()
     {
@@ -486,7 +486,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function object_throws_exception_even_not_strict()
     {
@@ -496,7 +496,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function resource_throws_exception_if_strict()
     {
@@ -506,7 +506,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function resource_throws_exception_even_not_strict()
     {
@@ -516,7 +516,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function callback_throws_exception_if_strict()
     {
@@ -530,7 +530,7 @@ class SplTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException \UnexpectedValueException
-     * @expectedExceptionMessage Value not a const in enum Clones\Tests\SplTypeChild
+     * @expectedExceptionMessage Value not a const in enum Jaroslavtyc\Clones\Tests\SplTypeChild
      */
     public function callback_throws_exception_even_not_strict()
     {

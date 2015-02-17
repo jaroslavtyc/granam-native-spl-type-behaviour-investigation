@@ -1,5 +1,5 @@
 <?php
-namespace Clones\Tests;
+namespace Jaroslavtyc\Clones\Tests;
 
 /**
  * @requires extension spl_types
